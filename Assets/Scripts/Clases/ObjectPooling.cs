@@ -39,6 +39,7 @@ public class ObjectPooling : MonoBehaviour
             GameObject requestedObject = availableObjectsList[0];
             availableObjectsList.Remove(requestedObject);
             UnavailableObjectsList.Add(requestedObject);
+            requestedObject.SetActive(true);
             return requestedObject;
         }
         else
