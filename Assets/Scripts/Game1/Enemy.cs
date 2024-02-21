@@ -60,7 +60,6 @@ public class Enemy : MonoBehaviour
     public void OnKilled()
     {
         clickEm.points += enemiesScriptable.points;
-        print("WOW nice: " + enemiesScriptable.points + " points");
         //call the function from the pool to kill the object
         point2Follow.RemoveAt(0);
         enemiesPool.DespawnObject(gameObject);

@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class ClickEm : MonoBehaviour
 {
+    //Saqué este código de un video de Youtube: https://www.youtube.com/watch?v=mRkFj8J7y_I y le hice mis propias modificaciones
+
     private PlayerInputActions playerInputActions;
     private Camera _mainCamera;
-
-    public float points;
+    [SerializeField] private TMP_Text text;
+    public float points = 0;
 
     private void Awake()
     {
@@ -29,7 +32,7 @@ public class ClickEm : MonoBehaviour
         var rayHit = Physics2D.GetRayIntersection(_mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()));
         if (!rayHit.collider) return;
 
-        Debug.Log(9);
         rayHit.collider.gameObject.GetComponent<Enemy>().OnKilled();
+        text.text = "Points: " + points;
     }
 }
