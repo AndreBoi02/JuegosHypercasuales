@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
-{
-    [SerializeField] private Enemies myEnemies;
-    
-    [SerializeField] private List<Transform> point2Follow;
-    private EnemiesScriptable enemiesScriptable;
+{   
+    public List<Transform> point2Follow;
+    [SerializeField] private EnemiesScriptable enemiesScriptable;
+    private ObjectPooling enemiesPool;
+    private ClickEm clickEm;
+
+    private void Start()
+    {
+        enemiesPool = FindObjectOfType<ObjectPooling>();
+        clickEm = FindObjectOfType<ClickEm>();
+        correctBug();
+    }
 
     private void Update()
     {
@@ -20,6 +27,8 @@ public class Enemy : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = enemiesStats.sprite;
         gameObject.GetComponent<SpriteRenderer>().color = enemiesStats.color;
         gameObject.transform.localScale = new Vector2(enemiesStats.size, enemiesStats.size);
+        BoxCollider2D bc2D = gameObject.AddComponent(typeof(BoxCollider2D)) as BoxCollider2D;
+        bc2D.isTrigger = true;
     }
 
     void Move()
@@ -35,24 +44,25 @@ public class Enemy : MonoBehaviour
             {
                 transform.position = point2Follow[0].position;
                 point2Follow.RemoveAt(0);
+                enemiesPool.DespawnObject(gameObject);
             }
         }
     }
 
-    private void OnMouseDown()
+    void correctBug()
     {
-        print("WOW nice: " + enemiesScriptable.points + " points");
-        //call the function from the pool to kill the object
-        gameObject.SetActive(false);
+        for (int i = 0; i < 2; i++)
+        {
+            point2Follow.RemoveAt(0);
+        }
     }
 
-    enum Enemies
+    public void OnKilled()
     {
-        normal,
-        fastOne,
-        slowOne,
-        bigOne,
-        lilOne
-    }
-        
+        clickEm.points += enemiesScriptable.points;
+        print("WOW nice: " + enemiesScriptable.points + " points");
+        //call the function from the pool to kill the object
+        point2Follow.RemoveAt(0);
+        enemiesPool.DespawnObject(gameObject);
+    }        
 }

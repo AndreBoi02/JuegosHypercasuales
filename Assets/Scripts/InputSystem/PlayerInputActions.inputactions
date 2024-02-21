@@ -28,6 +28,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Gam1",
+            "id": "fa751da5-32c0-471a-9d21-953850073277",
+            "actions": [
+                {
+                    "name": "ClickEmEnemies",
+                    "type": "Button",
+                    "id": "7c3b51b7-7405-4d3b-b1f2-8c5934c992c7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "50c7b8e8-15c8-4056-bed6-40b837b0323f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ClickEmEnemies",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

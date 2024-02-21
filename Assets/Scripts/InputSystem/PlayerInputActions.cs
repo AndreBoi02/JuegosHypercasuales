@@ -50,6 +50,34 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Gam1"",
+            ""id"": ""fa751da5-32c0-471a-9d21-953850073277"",
+            ""actions"": [
+                {
+                    ""name"": ""ClickEmEnemies"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c3b51b7-7405-4d3b-b1f2-8c5934c992c7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""50c7b8e8-15c8-4056-bed6-40b837b0323f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClickEmEnemies"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -57,6 +85,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         // Mov
         m_Mov = asset.FindActionMap("Mov", throwIfNotFound: true);
         m_Mov_Jump = m_Mov.FindAction("Jump", throwIfNotFound: true);
+        // Gam1
+        m_Gam1 = asset.FindActionMap("Gam1", throwIfNotFound: true);
+        m_Gam1_ClickEmEnemies = m_Gam1.FindAction("ClickEmEnemies", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -145,8 +176,45 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         }
     }
     public MovActions @Mov => new MovActions(this);
+
+    // Gam1
+    private readonly InputActionMap m_Gam1;
+    private IGam1Actions m_Gam1ActionsCallbackInterface;
+    private readonly InputAction m_Gam1_ClickEmEnemies;
+    public struct Gam1Actions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public Gam1Actions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ClickEmEnemies => m_Wrapper.m_Gam1_ClickEmEnemies;
+        public InputActionMap Get() { return m_Wrapper.m_Gam1; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(Gam1Actions set) { return set.Get(); }
+        public void SetCallbacks(IGam1Actions instance)
+        {
+            if (m_Wrapper.m_Gam1ActionsCallbackInterface != null)
+            {
+                @ClickEmEnemies.started -= m_Wrapper.m_Gam1ActionsCallbackInterface.OnClickEmEnemies;
+                @ClickEmEnemies.performed -= m_Wrapper.m_Gam1ActionsCallbackInterface.OnClickEmEnemies;
+                @ClickEmEnemies.canceled -= m_Wrapper.m_Gam1ActionsCallbackInterface.OnClickEmEnemies;
+            }
+            m_Wrapper.m_Gam1ActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @ClickEmEnemies.started += instance.OnClickEmEnemies;
+                @ClickEmEnemies.performed += instance.OnClickEmEnemies;
+                @ClickEmEnemies.canceled += instance.OnClickEmEnemies;
+            }
+        }
+    }
+    public Gam1Actions @Gam1 => new Gam1Actions(this);
     public interface IMovActions
     {
         void OnJump(InputAction.CallbackContext context);
+    }
+    public interface IGam1Actions
+    {
+        void OnClickEmEnemies(InputAction.CallbackContext context);
     }
 }

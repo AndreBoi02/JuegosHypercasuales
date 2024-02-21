@@ -16,4 +16,4 @@ MonoBehaviour:
   size: 1
   points: 1
   sprite: {fileID: 21300000, guid: 4140414bbad651a49a9cae323363ac50, type: 3}
-  color: {r: 1, g: 0, b: 0.8392157, a: 0}
+  color: {r: 1, g: 0, b: 0.8392157, a: 1}

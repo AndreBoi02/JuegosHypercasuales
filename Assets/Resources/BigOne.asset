@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e61c78426c44b547b34852f98b31d1d, type: 3}
-  m_Name: NormalOne
+  m_Name: BigOne
   m_EditorClassIdentifier: 
-  speed: 6
-  size: 1
-  points: 2
-  sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  color: {r: 1, g: 0, b: 0, a: 0}
+  speed: 2
+  size: 0.75
+  points: 1
+  sprite: {fileID: 21300000, guid: ad8e8b0f3c8434f46bcc6ddba8ace68b, type: 3}
+  color: {r: 1, g: 0.65882355, b: 0, a: 1}
